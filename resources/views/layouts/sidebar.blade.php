@@ -2,11 +2,35 @@
     <div class="side-nav-inner">
         <ul class="side-nav-menu scrollable">
             <li class="nav-item dropdown">
-                <a href="{{ url('') }}">
+                <a href="{{ url('home') }}">
                     <span class="icon-holder">
                         <i class="anticon anticon-dashboard"></i>
                     </span>
                     <span class="title">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="{{ url('registration') }}">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-file-add"></i>
+                    </span>
+                    <span class="title">Pendaftaran</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="{{ url('registration/list') }}">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-audit"></i>
+                    </span>
+                    <span class="title">Data Pendaftaran</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="{{ url('item') }}">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-hdd"></i>
+                    </span>
+                    <span class="title">Item</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
