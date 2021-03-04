@@ -41,6 +41,14 @@
                     <span class="title">Settings</span>
                 </a>
             </li>
+            <li class="nav-item dropdown">
+                <a href="{{ url('admin/user') }}">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-team"></i>
+                    </span>
+                    <span class="title">Kelola User</span>
+                </a>
+            </li>
 
             <!-- <li class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
