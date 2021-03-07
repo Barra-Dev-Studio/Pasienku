@@ -11,6 +11,10 @@ class Patient extends Model
     use SoftDeletes;
     use HasFactory;
 
+    protected $searchable = [
+        'name', 'identification_number'
+    ];
+
     protected $fillable = [
         'name', 'identification_number', 'address', 'birthdate', 'gender'
     ];

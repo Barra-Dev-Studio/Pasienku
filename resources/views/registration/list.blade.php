@@ -15,7 +15,7 @@
                         <p>Di bawah ini merupakan data pendaftaran pasien.</p>
                     </div>
                     <div class="col-md-4">
-                        <a href="{{ route('registration_page') }}" class="btn btn-primary">Pendaftaran Pasien</a>
+                        <a href="{{ route('registration_page') }}" class="btn btn-primary float-right">Pendaftaran Pasien</a>
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
             sort: true,
             processing: true,
             serverSide: true,
-            order: [1, 'ASC'],
+            order: [1, 'DESC'],
             ajax: {
                 headers: {
                     'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -73,7 +73,7 @@
                     data: 'patient.name',
                 },
                 {
-                    data: 'created_at',
+                    data: 'date',
                 },
                 {
                     data: 'action'

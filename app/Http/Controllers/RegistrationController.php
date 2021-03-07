@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegisterNewPatientRequest;
+use App\Http\Requests\RegisterOldPatientRequest;
 use App\Services\RegistrationService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DataTables;
 
@@ -29,6 +32,9 @@ class RegistrationController extends Controller
     {
         $data = $registrationService->getAllData();
         return DataTables::of($data)
+            ->addColumn('date', function ($data) {
+                return Carbon::parse($data->created_at)->format('d-m-Y H:i');
+            })
             ->addColumn('action', function ($data) {
                 return "<div class='btn-group'>
                         <a class='btn btn-primary btn-sm detailButton' href='" . route('registration_show', $data->id) . "'>
@@ -36,12 +42,12 @@ class RegistrationController extends Controller
                         </a>
                     </div>";
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'date'])
             ->addIndexColumn()
             ->make(true);
     }
 
-    public function registerNewPatient(Request $request, RegistrationService $registrationService)
+    public function registerNewPatient(RegisterNewPatientRequest $request, RegistrationService $registrationService)
     {
         $act = $registrationService->registerNewPatient($request);
         $registrationId = $act->id;
@@ -53,9 +59,9 @@ class RegistrationController extends Controller
         }
     }
 
-    public function registerOldPasien(Request $request, RegistrationService $registrationService)
+    public function registerOldPatient(RegisterOldPatientRequest $request, RegistrationService $registrationService)
     {
-        $act = $registrationService->registerOldPasien($request);
+        $act = $registrationService->registerOldPatient($request);
         $registrationId = $act->id;
 
         if ($act) {

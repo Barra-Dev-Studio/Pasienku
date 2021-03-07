@@ -21,4 +21,15 @@ class Controller extends BaseController
 
         return response()->json($send);
     }
+
+    public function toSelect2Format($data = [], $column = 'name')
+    {
+        $formatedSelect2 = [];
+
+        for ($indexData = 0, $countData = count($data); $indexData < $countData; $indexData++) {
+            $formatedSelect2[$indexData] = ['id' => $data[$indexData]['id'], 'text' => $data[$indexData][$column]];
+        }
+
+        return $formatedSelect2;
+    }
 }

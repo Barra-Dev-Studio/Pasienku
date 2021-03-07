@@ -3,6 +3,7 @@
 use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StockController;
@@ -63,6 +64,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('diagnosis')->group(function () {
         Route::post('updateOrCreate', [DiagnosisController::class, 'updateOrCreate'])->name('diagnosis_store');
+    });
+
+    Route::prefix('patient')->group(function () {
+        Route::post('getListPatients', [PatientController::class, 'getListPatients'])->name('patient_list');
+        Route::post('getPatient', [PatientController::class, 'getPatient'])->name('patient_get');
     });
 
     Route::prefix('admin')->group(function () {

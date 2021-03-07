@@ -42,4 +42,19 @@ class PatientService
     {
         return Patient::where('id', $request->id)->delete();
     }
+
+    public function getAllData()
+    {
+        return Patient::order_by('name', 'asc')->get();
+    }
+
+    public function getAllDataWithCredential($credential = null)
+    {
+        return Patient::where($credential)->orderby('name', 'asc')->get();
+    }
+
+    public function search($key = null)
+    {
+        return Patient::where('name', 'like', "%$key%")->orwhere('identification_number', 'like', "%$key%")->orderby('name', 'asc')->get();
+    }
 }
