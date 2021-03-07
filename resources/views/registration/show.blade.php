@@ -56,6 +56,10 @@
                                 <td class="text-dark font-weight-semibold">{{ $detail->patient->name }}</td>
                             </tr>
                             <tr>
+                                <td>Kontak</td>
+                                <td class="text-dark font-weight-semibold">{{ $detail->patient->contact }}</td>
+                            </tr>
+                            <tr>
                                 <td>Nomor Identifikasi</td>
                                 <td class="text-dark font-weight-semibold">{{ $detail->patient->identification_number }}</td>
                             </tr>

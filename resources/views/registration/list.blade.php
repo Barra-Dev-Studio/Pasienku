@@ -29,6 +29,7 @@
                         <th>No</th>
                         <th>No Pendaftaran</th>
                         <th>Nama</th>
+                        <th>Kontak</th>
                         <th>Tanggal Pendaftaran</th>
                         <th style="width: 10px; text-align: center"><i class='anticon anticon-setting'></i></th>
                     </thead>
@@ -71,6 +72,9 @@
                 },
                 {
                     data: 'patient.name',
+                },
+                {
+                    data: 'patient.contact',
                 },
                 {
                     data: 'date',

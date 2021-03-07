@@ -56,6 +56,15 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label for="contact">Kontak yang bisa dihubungi</label>
+                            <input type="text" name="contact" id="contact" class="form-control @error('contact') is-invalid @enderror" placeholder="Email/No Hp" required value="{{ old('contact') }}">
+                            @error('contact')
+                            <span class="invalid-feedback">
+                                {{ $message }}
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="birthdate">Tanggal Lahir</label>
                             <input type="date" name="birthdate" id="birthdate" class="form-control @error('birthdate') is-invalid @enderror" placeholder="Tanggal Lahir" value="{{ date('Y-m-d') }}" required value="{{ old('birthdate') }}">
                             @error('birthdate')
@@ -129,6 +138,10 @@
                                     <tr>
                                         <td>Nama</td>
                                         <td class="text-dark font-weight-semibold" id="search_result_name"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kontak</td>
+                                        <td class="text-dark font-weight-semibold" id="search_result_contact"></td>
                                     </tr>
                                     <tr>
                                         <td>No Identifikasi</td>
@@ -231,6 +244,7 @@
                     $('#search_result_gender').html(response.gender);
                     $('#search_result_birthdate').html(response.birthdate);
                     $('#search_result_address').html(response.address);
+                    $('#search_result_contact').html(response.contact);
                     $('#patient_old_id').val('');
                     $('#patient_old_id').val(response.id);
                     $('#oldPatientForm').show();

@@ -16,7 +16,7 @@ class Patient extends Model
     ];
 
     protected $fillable = [
-        'name', 'identification_number', 'address', 'birthdate', 'gender'
+        'name', 'identification_number', 'address', 'birthdate', 'gender', 'contact'
     ];
 
     public function registrations()

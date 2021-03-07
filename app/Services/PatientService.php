@@ -16,6 +16,7 @@ class PatientService
                 'gender' => $request->gender,
                 'identification_number' => $request->identification_number,
                 'address' => $request->address,
+                'contact' => $request->contact,
             ]
         );
     }
@@ -29,6 +30,7 @@ class PatientService
                 'gender' => $request->gender,
                 'identification_number' => $request->identification_number,
                 'address' => $request->address,
+                'contact' => $request->contact,
             ]
         );
     }

@@ -29,7 +29,8 @@ class RegisterNewPatientRequest extends FormRequest
             'birthdate'             => ['required', 'before:tomorrow'],
             'gender'                => ['required'],
             'address'               => ['required'],
-            'diagnosis'             => ['required']
+            'diagnosis'             => ['required'],
+            'contact'               => ['required']
         ];
     }
 
@@ -49,6 +50,7 @@ class RegisterNewPatientRequest extends FormRequest
             'gender.required'                => 'Jenis kelamin pasien tidak boleh kosong',
             'address.required'               => 'Alamat pasien tidak boleh kosong',
             'diagnosis.required'             => 'Diagnosis awal pasien tidak boleh kosong',
+            'contact.required'               => 'Kontak pasien tidak boleh kosong',
         ];
     }
 }
