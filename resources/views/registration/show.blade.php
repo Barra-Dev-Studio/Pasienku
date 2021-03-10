@@ -187,6 +187,7 @@
                                 <th class="text-center">Nama Obat / Tindakan</th>
                                 <th class="text-center" style="width: 50px;">Kuantitas</th>
                                 <th class="text-center" style="width: 50px;">Harga</th>
+                                <th class="text-center" style="width: 50px;">Diskon</th>
                                 <th class="text-center" style="width: 50px;">Total</th>
                             </thead>
                             <tbody>
@@ -195,25 +196,32 @@
                                 <tr>
                                     <td>
                                         <input type="hidden" name="id[]" id="id" value="{{ $detailBilling->id }}">
+                                        <input type="hidden" name="billing_id" id="billing_id" value="{{ $detail->billing->id }}">
                                         {{ $detailBilling->prescription->name }}
                                     </td>
                                     <td class="text-dark font-weight-semibold text-center">{{ $detailBilling->prescription->total }}</td>
                                     <td class="text-dark text-right">
                                         <input type="number" class="form-control text-right" value="{{ $detailBilling->price }}" name="price[]" id="price">
                                     </td>
-                                    <td class="text-dark font-weight-semibold text-right">{{ number_format($detailBilling->prescription->total * $detailBilling->price) }}</td>
+                                    <td class="text-dark text-right">
+                                        <input type="number" class="form-control text-right" value="{{ $detailBilling->discount }}" name="discount[]" id="discount">
+                                    </td>
+                                    <td class="text-dark font-weight-semibold text-right">{{ number_format($detailBilling->prescription->total * ($detailBilling->price - ($detailBilling->price * ($detailBilling->discount / 100)))) }}</td>
                                 </tr>
-                                @php $totalBilling += ($detailBilling->prescription->total * $detailBilling->price); @endphp
+                                @php $totalBilling += ($detailBilling->prescription->total * ($detailBilling->price - ($detailBilling->price * ($detailBilling->discount / 100)))); @endphp
                                 @empty
                                 <tr>
-                                    <td colspan="4" class="text-center">Belum ada data</td>
+                                    <td colspan="5" class="text-center">Belum ada data</td>
                                 </tr>
                                 @endforelse
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td class="text-center font-weight-semibold" colspan="3">Total</td>
-                                    <td class="text-right font-weight-semibold">{{ number_format($totalBilling) }}</td>
+                                    <td class="text-center font-weight-semibold" colspan="4">Total</td>
+                                    <td class="text-right font-weight-semibold">
+                                        <input type="hidden" name="total_price" id="total_price" value="{{ $totalBilling }}">
+                                        {{ number_format($totalBilling) }}
+                                    </td>
                                 </tr>
                             </tfoot>
                         </table>

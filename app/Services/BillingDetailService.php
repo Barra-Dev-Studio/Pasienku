@@ -54,7 +54,8 @@ class BillingDetailService
     {
         return BillingDetail::where('id', $request->id[$index])->update(
             [
-                'price' => $request->price[$index]
+                'price' => $request->price[$index],
+                'discount' => $request->discount[$index]
             ]
         );
     }

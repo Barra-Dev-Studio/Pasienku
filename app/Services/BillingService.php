@@ -30,4 +30,13 @@ class BillingService
             ]
         );
     }
+
+    public function updatePrice(Request $request)
+    {
+        return Billing::where('id', $request->billing_id)->update(
+            [
+                'total_price' => $request->total_price
+            ]
+        );
+    }
 }
