@@ -47,7 +47,7 @@ class PatientService
 
     public function getAllData()
     {
-        return Patient::order_by('name', 'asc')->get();
+        return Patient::orderby('name', 'asc')->get();
     }
 
     public function getAllDataWithCredential($credential = null)

@@ -24,4 +24,9 @@ class Registration extends Model
     {
         return $this->hasOne(Diagnosis::class, 'registration_id', 'id');
     }
+
+    public function billing()
+    {
+        return $this->hasOne(Billing::class, 'registration_id', 'id');
+    }
 }

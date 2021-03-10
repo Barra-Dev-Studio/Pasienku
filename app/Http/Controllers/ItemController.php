@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Stock;
 use App\Services\ItemService;
 use Illuminate\Http\Request;
@@ -81,5 +82,29 @@ class ItemController extends Controller
         } else {
             return $this->sendNotificiation('error', 'Gagal menghapus item');
         }
+    }
+
+    public function itemSelect(Request $request, ItemService $itemService)
+    {
+        $data = $this->_toSelect2Format($itemService->search($request->search)->toArray(), ['text' => 'name', 'stock' => 'stock']);
+        return response()->json($data);
+    }
+
+    public function itemDetail(Request $request, ItemService $itemService)
+    {
+        $data = $itemService->detail($request->id);
+
+        return response()->json($data);
+    }
+
+    private function _toSelect2Format($data = [], $column = [])
+    {
+        $formatedSelect2 = [];
+
+        for ($indexData = 0, $countData = count($data); $indexData < $countData; $indexData++) {
+            $formatedSelect2[$indexData] = ['id' => $data[$indexData]['id'], 'text' => $data[$indexData][$column['text']], 'stock' => $data[$indexData][$column['stock']]];
+        }
+
+        return $formatedSelect2;
     }
 }

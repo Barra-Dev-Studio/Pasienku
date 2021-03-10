@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
+use App\Models\Registration;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\ServerBag;
 
@@ -42,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('store', [ItemController::class, 'store'])->name('item_store');
         Route::post('update', [ItemController::class, 'update'])->name('item_update');
         Route::delete('delete', [ItemController::class, 'delete'])->name('item_delete');
+        Route::post('/itemSelect', [ItemController::class, 'itemSelect'])->name('item_list_select');
+        Route::post('/itemDetail', [ItemController::class, 'itemDetail'])->name('item_detail');
         Route::get('{id}/detail', [ItemController::class, 'show'])->name('item_show');
     });
 
@@ -59,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/listData', [RegistrationController::class, 'list'])->name('registration_list_data');
         Route::post('registerNewPatient', [RegistrationController::class, 'registerNewPatient'])->name('register_new_patient');
         Route::post('registerOldPatient', [RegistrationController::class, 'registerOldPatient'])->name('register_old_patient');
+        Route::post('/history', [RegistrationController::class, 'history'])->name('register_history');
         Route::get('{id}/detail', [RegistrationController::class, 'show'])->name('registration_show');
     });
 
@@ -67,8 +73,20 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('patient')->group(function () {
+        Route::get('/', [PatientController::class, 'index'])->name('patient_page');
+        Route::get('/{id}/detail', [PatientController::class, 'show'])->name('patient_show');
+        Route::post('list', [PatientController::class, 'list'])->name('patient_data_list');
+        Route::post('update', [PatientController::class, 'update'])->name('patient_update');
         Route::post('getListPatients', [PatientController::class, 'getListPatients'])->name('patient_list');
         Route::post('getPatient', [PatientController::class, 'getPatient'])->name('patient_get');
+    });
+
+    Route::prefix('prescription')->group(function () {
+        Route::post('/store', [PrescriptionController::class, 'store'])->name('prescription_store');
+    });
+
+    Route::prefix('billing')->group(function () {
+        Route::post('updateMultiple', [BillingController::class, 'updateMultiple'])->name('update_multiple_billing');
     });
 
     Route::prefix('admin')->group(function () {

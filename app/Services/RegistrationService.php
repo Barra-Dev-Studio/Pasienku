@@ -51,12 +51,17 @@ class RegistrationService
 
     public function getDataWithPatient($id)
     {
-        return Registration::where('id', $id)->with(['patient', 'diagnose'])->first();
+        return Registration::where('id', $id)->with(['patient', 'diagnose', 'billing.detail.prescription.item'])->first();
     }
 
     public function getAllData()
     {
         return Registration::with('patient')->latest()->get();
+    }
+
+    public function getHistory($patient_id)
+    {
+        return Registration::where('patient_id', $patient_id)->get();
     }
 
     private function _register(Request $request, $patient_id)

@@ -34,11 +34,11 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
-                <a href="{{ url('setting') }}">
+                <a href="{{ url('patient') }}">
                     <span class="icon-holder">
-                        <i class="anticon anticon-setting"></i>
+                        <i class="anticon anticon-team"></i>
                     </span>
-                    <span class="title">Settings</span>
+                    <span class="title">Kelola Pasien</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
@@ -47,6 +47,14 @@
                         <i class="anticon anticon-team"></i>
                     </span>
                     <span class="title">Kelola User</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="{{ url('setting') }}">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-setting"></i>
+                    </span>
+                    <span class="title">Settings</span>
                 </a>
             </li>
 

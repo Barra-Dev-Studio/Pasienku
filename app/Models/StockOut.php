@@ -6,17 +6,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Patient extends Model
+class StockOut extends Model
 {
     use SoftDeletes;
     use HasFactory;
 
     protected $fillable = [
-        'name', 'identification_number', 'address', 'birthdate', 'gender', 'contact'
+        'registration_id',
+        'item_id',
+        'total'
     ];
 
-    public function registrations()
+    public function registration()
     {
-        return $this->hasMany(Registration::class);
+        return $this->belongsTo(Registration::class);
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
     }
 }
