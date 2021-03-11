@@ -182,65 +182,67 @@
                 <div class="card-body">
                     <form action="{{ route('update_multiple_billing') }}" method="POST">
                         @csrf
-                        <table class="product-info-table table" id="billing-data">
-                            <thead>
-                                <th class="text-center">Nama Obat / Tindakan</th>
-                                <th class="text-center" style="width: 50px;">Kuantitas</th>
-                                <th class="text-center" style="width: 50px;">Harga</th>
-                                <th class="text-center" style="width: 50px;">Diskon</th>
-                                <th class="text-center" style="width: 50px;">Total</th>
-                            </thead>
-                            <tbody>
-                                @php $totalBilling = 0; @endphp
-                                @forelse($detail->billing->detail as $detailBilling)
-                                <tr>
-                                    <td>
-                                        <input type="hidden" name="id[]" id="id-{{ $detailBilling->id }}" value="{{ $detailBilling->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
-                                        <input type="hidden" name="billing_id" id="billing_id-{{ $detailBilling->id }}" value="{{ $detail->billing->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
-                                        {{ $detailBilling->prescription->name }}
-                                    </td>
-                                    <td class="text-dark font-weight-semibold text-center" id="total-{{ $detailBilling->id }}">{{ $detailBilling->prescription->total }}</td>
-                                    <td class="text-dark text-right">
-                                        <input type="number" class="form-control text-right" value="{{ $detailBilling->price }}" name="price[]" id="price-{{ $detailBilling->id }}" onkeyup='calculate(this)' data-id="{{ $detailBilling->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
-                                    </td>
-                                    <td class="text-dark text-right">
-                                        <input type="number" class="form-control text-right" value="{{ $detailBilling->discount }}" name="discount[]" id="discount-{{ $detailBilling->id }}" onkeyup='calculate(this)' data-id="{{ $detailBilling->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
-                                    </td>
-                                    <td class="text-dark font-weight-semibold text-right subtotals" id="subtotal-{{ $detailBilling->id }}">{{ number_format($detailBilling->prescription->total * ($detailBilling->price - ($detailBilling->price * ($detailBilling->discount / 100)))) }}</td>
-                                </tr>
-                                @php $totalBilling += ($detailBilling->prescription->total * ($detailBilling->price - ($detailBilling->price * ($detailBilling->discount / 100)))); @endphp
-                                @empty
-                                <tr>
-                                    <td colspan="5" class="text-center">Belum ada data</td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td class="text-right font-weight-semibold" colspan="4">
-                                        Total
-                                        <input type="hidden" name="total_price" id="total_price" value="{{ $totalBilling }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
-                                    </td>
-                                    <td class="text-right font-weight-semibold" id="total_price_show">
-                                        {{ number_format($totalBilling) }}
-                                    </td>
-                                </tr>
-                                @if($detail->status == 'SUCCESS')
-                                <tr>
-                                    <td class="text-right font-weight-semibold" colspan="4">Total Dibayarkan</td>
-                                    <td class="text-right font-weight-semibold" id="total_price_show">
-                                        {{ number_format($detail->billing->total_payment) }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-right font-weight-semibold" colspan="4">Total Kembalian</td>
-                                    <td class="text-right font-weight-semibold" id="total_price_show">
-                                        {{ number_format($detail->billing->total_payment - $totalBilling) }}
-                                    </td>
-                                </tr>
-                                @endif
-                            </tfoot>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="product-info-table table" id="billing-data">
+                                <thead>
+                                    <th class="text-center">Nama Obat / Tindakan</th>
+                                    <th class="text-center" style="width: 50px;">Kuantitas</th>
+                                    <th class="text-center" style="width: 50px;">Harga</th>
+                                    <th class="text-center" style="width: 50px;">Diskon</th>
+                                    <th class="text-center" style="width: 50px;">Total</th>
+                                </thead>
+                                <tbody>
+                                    @php $totalBilling = 0; @endphp
+                                    @forelse($detail->billing->detail as $detailBilling)
+                                    <tr>
+                                        <td>
+                                            <input type="hidden" name="id[]" id="id-{{ $detailBilling->id }}" value="{{ $detailBilling->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
+                                            <input type="hidden" name="billing_id" id="billing_id-{{ $detailBilling->id }}" value="{{ $detail->billing->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
+                                            {{ $detailBilling->prescription->name }}
+                                        </td>
+                                        <td class="text-dark font-weight-semibold text-center" id="total-{{ $detailBilling->id }}">{{ $detailBilling->prescription->total }}</td>
+                                        <td class="text-dark text-right">
+                                            <input type="number" class="form-control text-right" value="{{ $detailBilling->price }}" name="price[]" id="price-{{ $detailBilling->id }}" onkeyup='calculate(this)' data-id="{{ $detailBilling->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
+                                        </td>
+                                        <td class="text-dark text-right">
+                                            <input type="number" class="form-control text-right" value="{{ $detailBilling->discount }}" name="discount[]" id="discount-{{ $detailBilling->id }}" onkeyup='calculate(this)' data-id="{{ $detailBilling->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
+                                        </td>
+                                        <td class="text-dark font-weight-semibold text-right subtotals" id="subtotal-{{ $detailBilling->id }}">{{ number_format($detailBilling->prescription->total * ($detailBilling->price - ($detailBilling->price * ($detailBilling->discount / 100)))) }}</td>
+                                    </tr>
+                                    @php $totalBilling += ($detailBilling->prescription->total * ($detailBilling->price - ($detailBilling->price * ($detailBilling->discount / 100)))); @endphp
+                                    @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center">Belum ada data</td>
+                                    </tr>
+                                    @endforelse
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td class="text-right font-weight-semibold" colspan="4">
+                                            Total
+                                            <input type="hidden" name="total_price" id="total_price" value="{{ $totalBilling }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
+                                        </td>
+                                        <td class="text-right font-weight-semibold" id="total_price_show">
+                                            {{ number_format($totalBilling) }}
+                                        </td>
+                                    </tr>
+                                    @if($detail->status == 'SUCCESS')
+                                    <tr>
+                                        <td class="text-right font-weight-semibold" colspan="4">Total Dibayarkan</td>
+                                        <td class="text-right font-weight-semibold" id="total_price_show">
+                                            {{ number_format($detail->billing->total_payment) }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right font-weight-semibold" colspan="4">Total Kembalian</td>
+                                        <td class="text-right font-weight-semibold" id="total_price_show">
+                                            {{ number_format($detail->billing->total_payment - $totalBilling) }}
+                                        </td>
+                                    </tr>
+                                    @endif
+                                </tfoot>
+                            </table>
+                        </div>
                         <div class="form-group mt-3">
                             <button class="btn btn-primary" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>Simpan Pembayaran</button>
                             <button class="btn btn-success float-right" type="button" data-toggle="modal" data-target="#finalizeModal" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>Finalisasi</button>

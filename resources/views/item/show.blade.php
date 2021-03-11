@@ -68,15 +68,17 @@
                     <h4 class="card-title">Detail Transaksi Masuk</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table" id="datatable" width="100%">
-                        <thead>
-                            <th style="width: 10px;">No</th>
-                            <th>Invoice</th>
-                            <th>Expired</th>
-                            <th style="width: 50px;">Total</th>
-                            <th style="width: 10px; text-align: center"><i class='anticon anticon-setting'></i></th>
-                        </thead>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table" id="datatable" width="100%">
+                            <thead>
+                                <th style="width: 10px;">No</th>
+                                <th>Invoice</th>
+                                <th>Expired</th>
+                                <th style="width: 50px;">Total</th>
+                                <th style="width: 10px; text-align: center"><i class='anticon anticon-setting'></i></th>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="card">
@@ -84,14 +86,16 @@
                     <h4 class="card-title">Detail Transaksi Keluar</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table" id="datatableout" width="100%">
-                        <thead>
-                            <th style="width: 10px;">No</th>
-                            <th>No. Pendaftaran</th>
-                            <th style="width: 50px;">Total</th>
-                            <th style="width: 10px; text-align: center"><i class='anticon anticon-setting'></i></th>
-                        </thead>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table" id="datatableout" width="100%">
+                            <thead>
+                                <th style="width: 10px;">No</th>
+                                <th>No. Pendaftaran</th>
+                                <th style="width: 50px;">Total</th>
+                                <th style="width: 10px; text-align: center"><i class='anticon anticon-setting'></i></th>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

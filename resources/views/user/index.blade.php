@@ -21,14 +21,18 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-                <table class="table" id="datatable">
-                    <thead>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Email</th>
-                        <th style="width: 10px; text-align: center"><i class='anticon anticon-setting'></i></th>
-                    </thead>
-                </table>
+                <div class="table-responsive">
+                    <div class="table-responsive">
+                        <table class="table" id="datatable">
+                            <thead>
+                                <th>No</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th style="width: 10px; text-align: center"><i class='anticon anticon-setting'></i></th>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
