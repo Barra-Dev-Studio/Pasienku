@@ -26,19 +26,19 @@
                 </a>
             </li>
             <li class="nav-item dropdown">
+                <a href="{{ url('patient') }}">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-solution"></i>
+                    </span>
+                    <span class="title">Kelola Pasien</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
                 <a href="{{ url('item') }}">
                     <span class="icon-holder">
                         <i class="anticon anticon-hdd"></i>
                     </span>
                     <span class="title">Item</span>
-                </a>
-            </li>
-            <li class="nav-item dropdown">
-                <a href="{{ url('patient') }}">
-                    <span class="icon-holder">
-                        <i class="anticon anticon-team"></i>
-                    </span>
-                    <span class="title">Kelola Pasien</span>
                 </a>
             </li>
             <li class="nav-item dropdown">
