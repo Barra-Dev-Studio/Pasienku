@@ -64,6 +64,15 @@ class RegistrationService
         return Registration::where('patient_id', $patient_id)->get();
     }
 
+    public function finalize(Request $request)
+    {
+        return Registration::where('id', $request->registration_id)->update(
+            [
+                'status' => 'SUCCESS'
+            ]
+        );
+    }
+
     private function _register(Request $request, $patient_id)
     {
         return Registration::create(

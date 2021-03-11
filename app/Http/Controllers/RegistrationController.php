@@ -10,6 +10,7 @@ use App\Services\RegistrationService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DataTables;
+use DB;
 
 class RegistrationController extends Controller
 {
@@ -52,27 +53,46 @@ class RegistrationController extends Controller
 
     public function registerNewPatient(RegisterNewPatientRequest $request, RegistrationService $registrationService, BillingService $billingService)
     {
-        $act = $registrationService->registerNewPatient($request);
-        $registrationId = $act->id;
-        $billing = $billingService->storeByRegistrationId($registrationId);
+        try {
 
-        if ($act) {
-            return redirect("registration/$registrationId/detail")->with('success', 'Pendaftaran berhasil');
-        } else {
-            return redirect()->back()->with('error', 'Pendaftaran gagal');
+            DB::beginTransaction();
+
+            $act = $registrationService->registerNewPatient($request);
+            $registrationId = $act->id;
+            $billing = $billingService->storeByRegistrationId($registrationId);
+
+            DB::commit();
+
+            if ($act) {
+                return redirect("registration/$registrationId/detail")->with('success', 'Pendaftaran berhasil');
+            } else {
+                return back()->with('error', 'Pendaftaran gagal');
+            }
+        } catch (\Exception $error) {
+            DB::rollback();
+            return back()->with('error', 'Pendaftaran gagal');
         }
     }
 
     public function registerOldPatient(RegisterOldPatientRequest $request, RegistrationService $registrationService, BillingService $billingService)
     {
-        $act = $registrationService->registerOldPatient($request);
-        $registrationId = $act->id;
-        $billing = $billingService->storeByRegistrationId($registrationId);
+        try {
+            DB::beginTransaction();
 
-        if ($act) {
-            return redirect("registration/$registrationId/detail")->with('success', 'Pendaftaran berhasil');
-        } else {
-            return redirect()->back()->with('error', 'Pendaftaran gagal');
+            $act = $registrationService->registerOldPatient($request);
+            $registrationId = $act->id;
+            $billing = $billingService->storeByRegistrationId($registrationId);
+
+            DB::commit();
+
+            if ($act) {
+                return redirect("registration/$registrationId/detail")->with('success', 'Pendaftaran berhasil');
+            } else {
+                return back()->with('error', 'Pendaftaran gagal');
+            }
+        } catch (\Exception $error) {
+            DB::rollback();
+            return back()->with('error', 'Pendaftaran gagal');
         }
     }
 
@@ -94,5 +114,25 @@ class RegistrationController extends Controller
             ->rawColumns(['action'])
             ->addIndexColumn()
             ->make(true);
+    }
+
+    public function finalize(Request $request, RegistrationService $registrationService, BillingService $billingService)
+    {
+        try {
+            DB::beginTransaction();
+
+            $act = $registrationService->finalize($request);
+            $completeBilling = $billingService->updatePayment($request);
+            DB::commit();
+
+            if ($completeBilling) {
+                return back()->with('success', 'Pendaftaran berhasil difinalisasi');
+            } else {
+                return back()->with('error', 'Pendaftaran gagal difinalisasi');
+            }
+        } catch (\Exception $error) {
+            DB::rollback();
+            return back()->with('error', 'Pendaftaran gagal difinalisasi');
+        }
     }
 }

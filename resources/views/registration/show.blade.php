@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="page-header no-gutters has-tab">
-    <h2 class="font-weight-normal">{{ $detail->patient->name }}</h2>
+    <h2 class="font-weight-normal">{{ $detail->patient->name }} {!! ($detail->status == 'SUCCESS') ? "<span class='badge badge-success'>Selesai</span>" : '' !!}</h2>
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#tab-info">Informasi</a>
@@ -106,14 +106,14 @@
                         <input type="hidden" name="registration_id" value="{{ $detail->id }}">
                         <div class="form-group">
                             <label for="blood_pressure">Tekanan Darah</label>
-                            <input type="text" name="blood_pressure" id="blood_pressure" class="form-control" placeholder="Contoh 120/80" value="{{ $detail->diagnose->blood_pressure ?? '' }}">
+                            <input type="text" name="blood_pressure" id="blood_pressure" class="form-control" placeholder="Contoh 120/80" value="{{ $detail->diagnose->blood_pressure ?? '' }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
                         </div>
                         <div class="form-group">
                             <label for="further_diagnosis">Pemeriksaan Lanjutan</label>
-                            <textarea name="further_diagnosis" id="further_diagnosis" rows="5" class="form-control" placeholder="Deskripsikan pemeriksaan lanjutan pasien">{{ $detail->diagnose->further_diagnosis ?? '' }}</textarea>
+                            <textarea name="further_diagnosis" id="further_diagnosis" rows="5" class="form-control" placeholder="Deskripsikan pemeriksaan lanjutan pasien" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>{{ $detail->diagnose->further_diagnosis ?? '' }}</textarea>
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary">Simpan</button>
+                            <button class="btn btn-primary" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -126,10 +126,10 @@
                 </div>
                 <div class="card-body">
                     <div class="form-group">
-                        <select name="item_select" id="item_select" class="form-control"></select>
+                        <select name="item_select" id="item_select" class="form-control" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}></select>
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-primary" id="free_text_button">Tambahkan Teks Kosong</button>
+                        <button class="btn btn-primary" id="free_text_button" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>Tambahkan Teks Kosong</button>
                     </div>
                 </div>
             </div>
@@ -148,27 +148,27 @@
                                 <div class='form-group row d-flex align-items-center'>
                                     <div class='col-md-3'>
                                         <label for='item-{{ $prescription->item_id }}'>{{ $prescription->name }}</label>
-                                        <input type='hidden' name='item_id[]' id='item-{{ $prescription->item_id }}' value='{{ $prescription->item_id }}' required>
-                                        <input type='hidden' name='name[]' id='item-{{ $prescription->name }}' value='{{ $prescription->name }}' required>
+                                        <input type='hidden' name='item_id[]' id='item-{{ $prescription->item_id }}' value='{{ $prescription->item_id }}' required {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
+                                        <input type='hidden' name='name[]' id='item-{{ $prescription->name }}' value='{{ $prescription->name }}' required {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
                                     </div>
                                     <div class='col-md-3'>
-                                        <input type='text' name='use[]' id='use-{{ $prescription->item_id }}' class='form-control' placeholder='Cara penggunaan obat' value="{{ $prescription->use }}" required>
+                                        <input type='text' name='use[]' id='use-{{ $prescription->item_id }}' class='form-control' placeholder='Cara penggunaan obat' value="{{ $prescription->use }}" required {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
                                     </div>
                                     <div class='col-md-3'>
-                                        <input type='text' name='when[]' id='when-{{ $prescription->item_id }}' class='form-control' placeholder='Waktu penggunaan obat' value="{{ $prescription->when }}" required>
+                                        <input type='text' name='when[]' id='when-{{ $prescription->item_id }}' class='form-control' placeholder='Waktu penggunaan obat' value="{{ $prescription->when }}" required {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
                                     </div>
                                     <div class='col-md-2'>
-                                        <input type='number' name='total[]' id='total-{{ $prescription->item_id }}' class='form-control' placeholder='Total obat' value="{{ $prescription->total }}" required>
+                                        <input type='number' name='total[]' id='total-{{ $prescription->item_id }}' class='form-control' placeholder='Total obat' value="{{ $prescription->total }}" required {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
                                     </div>
                                     <div class='col-md-1'>
-                                        <button type='button' class='btn btn-danger btn-sm deleteButton' data-id='{{ $prescription->item_id }}'><i class='anticon anticon-delete'></i></button>
+                                        <button type='button' class='btn btn-danger btn-sm deleteButton' data-id='{{ $prescription->item_id }}' {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}><i class='anticon anticon-delete'></i></button>
                                     </div>
                                 </div>
                             </div>
                             @endforeach
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-primary">Simpan Resep</button>
+                            <button class="btn btn-primary" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>Simpan Resep</button>
                         </div>
                     </form>
                 </div>
@@ -182,7 +182,7 @@
                 <div class="card-body">
                     <form action="{{ route('update_multiple_billing') }}" method="POST">
                         @csrf
-                        <table class="product-info-table table">
+                        <table class="product-info-table table" id="billing-data">
                             <thead>
                                 <th class="text-center">Nama Obat / Tindakan</th>
                                 <th class="text-center" style="width: 50px;">Kuantitas</th>
@@ -195,18 +195,18 @@
                                 @forelse($detail->billing->detail as $detailBilling)
                                 <tr>
                                     <td>
-                                        <input type="hidden" name="id[]" id="id" value="{{ $detailBilling->id }}">
-                                        <input type="hidden" name="billing_id" id="billing_id" value="{{ $detail->billing->id }}">
+                                        <input type="hidden" name="id[]" id="id-{{ $detailBilling->id }}" value="{{ $detailBilling->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
+                                        <input type="hidden" name="billing_id" id="billing_id-{{ $detailBilling->id }}" value="{{ $detail->billing->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
                                         {{ $detailBilling->prescription->name }}
                                     </td>
-                                    <td class="text-dark font-weight-semibold text-center">{{ $detailBilling->prescription->total }}</td>
+                                    <td class="text-dark font-weight-semibold text-center" id="total-{{ $detailBilling->id }}">{{ $detailBilling->prescription->total }}</td>
                                     <td class="text-dark text-right">
-                                        <input type="number" class="form-control text-right" value="{{ $detailBilling->price }}" name="price[]" id="price">
+                                        <input type="number" class="form-control text-right" value="{{ $detailBilling->price }}" name="price[]" id="price-{{ $detailBilling->id }}" onkeyup='calculate(this)' data-id="{{ $detailBilling->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
                                     </td>
                                     <td class="text-dark text-right">
-                                        <input type="number" class="form-control text-right" value="{{ $detailBilling->discount }}" name="discount[]" id="discount">
+                                        <input type="number" class="form-control text-right" value="{{ $detailBilling->discount }}" name="discount[]" id="discount-{{ $detailBilling->id }}" onkeyup='calculate(this)' data-id="{{ $detailBilling->id }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
                                     </td>
-                                    <td class="text-dark font-weight-semibold text-right">{{ number_format($detailBilling->prescription->total * ($detailBilling->price - ($detailBilling->price * ($detailBilling->discount / 100)))) }}</td>
+                                    <td class="text-dark font-weight-semibold text-right subtotals" id="subtotal-{{ $detailBilling->id }}">{{ number_format($detailBilling->prescription->total * ($detailBilling->price - ($detailBilling->price * ($detailBilling->discount / 100)))) }}</td>
                                 </tr>
                                 @php $totalBilling += ($detailBilling->prescription->total * ($detailBilling->price - ($detailBilling->price * ($detailBilling->discount / 100)))); @endphp
                                 @empty
@@ -217,16 +217,33 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td class="text-center font-weight-semibold" colspan="4">Total</td>
-                                    <td class="text-right font-weight-semibold">
-                                        <input type="hidden" name="total_price" id="total_price" value="{{ $totalBilling }}">
+                                    <td class="text-right font-weight-semibold" colspan="4">
+                                        Total
+                                        <input type="hidden" name="total_price" id="total_price" value="{{ $totalBilling }}" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>
+                                    </td>
+                                    <td class="text-right font-weight-semibold" id="total_price_show">
                                         {{ number_format($totalBilling) }}
                                     </td>
                                 </tr>
+                                @if($detail->status == 'SUCCESS')
+                                <tr>
+                                    <td class="text-right font-weight-semibold" colspan="4">Total Dibayarkan</td>
+                                    <td class="text-right font-weight-semibold" id="total_price_show">
+                                        {{ number_format($detail->billing->total_payment) }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-right font-weight-semibold" colspan="4">Total Kembalian</td>
+                                    <td class="text-right font-weight-semibold" id="total_price_show">
+                                        {{ number_format($detail->billing->total_payment - $totalBilling) }}
+                                    </td>
+                                </tr>
+                                @endif
                             </tfoot>
                         </table>
                         <div class="form-group mt-3">
-                            <button class="btn btn-primary">Simpan Pembayaran</button>
+                            <button class="btn btn-primary" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>Simpan Pembayaran</button>
+                            <button class="btn btn-success float-right" type="button" data-toggle="modal" data-target="#finalizeModal" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>Finalisasi</button>
                         </div>
                     </form>
                 </div>
@@ -234,9 +251,42 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="finalizeModal" tabindex="-1" aria-labelledby="finalizeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="finalizeModalLabel">Finalisasi Pasien</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Pendaftaran yang sudah difinalisasi tidak bisa diubah kembali</p>
+                <form action="{{ route('registration_finalize') }}" method="post" id="finalize-form">
+                    @csrf
+                    <input type="hidden" name="registration_id" id="registration_id" value="{{ $detail->id }}">
+                    <input type="hidden" name="billing_id" id="billing_id" value="{{ $detail->billing->id }}">
+                    <div class="form-group">
+                        <label for="total_payment">Total Dibayarkan</label>
+                        <input type="number" name="total_payment" id="total_payment" class="form-control" placeholder="Total Dibayarkan" required onkeyup="calculate_return()">
+                    </div>
+                    <div class="form-group">
+                        <label for="total_return">Total Kembalian</label>
+                        <input type="text" name="total_return" id="total_return" class="form-control readonly" placeholder="Total Kembalian" readonly>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
+                <button type="submit" class="btn btn-primary" form="finalize-form">Proses</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script>
     $('#item_select').select2({
         theme: "bootstrap",
@@ -351,5 +401,36 @@
             }
         });
     });
+
+    function calculate(object) {
+        var id = $(object).data('id');
+        var quantity = $('#total-' + id).html();
+        var price = $("#price-" + id).val();
+        var discount = $("#discount-" + id).val();
+        var subtotal = ((+quantity) * price);
+        subtotal = (subtotal - (subtotal * (discount / 100)));
+
+        $("#subtotal-" + id).html(numeral(subtotal).format());
+        calculate_total();
+    }
+
+    function calculate_total() {
+        var total = 0;
+
+        $('tr .subtotals').each(function(index, value) {
+            current = parseFloat(numeral($(this).text()).value());
+            total += current;
+        });
+
+        $('#total_price').html(total);
+        $('#total_price_show').html(numeral(total).format());
+    }
+
+    function calculate_return() {
+        var total = $('#total_price').val();
+        var total_payment = $('#total_payment').val();
+
+        $('#total_return').val(numeral(total_payment - total).format());
+    }
 </script>
 @endpush

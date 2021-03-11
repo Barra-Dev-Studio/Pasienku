@@ -39,4 +39,13 @@ class BillingService
             ]
         );
     }
+
+    public function updatePayment(Request $request)
+    {
+        return Billing::where('id', $request->billing_id)->update(
+            [
+                'total_payment' => $request->total_payment
+            ]
+        );
+    }
 }

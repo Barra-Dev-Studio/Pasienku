@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\DiagnosisController;
 use App\Http\Controllers\HomeController;
@@ -66,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('registerOldPatient', [RegistrationController::class, 'registerOldPatient'])->name('register_old_patient');
         Route::post('/history', [RegistrationController::class, 'history'])->name('register_history');
         Route::get('{id}/detail', [RegistrationController::class, 'show'])->name('registration_show');
+        Route::post('/finalize', [RegistrationController::class, 'finalize'])->name('registration_finalize');
     });
 
     Route::prefix('diagnosis')->group(function () {
