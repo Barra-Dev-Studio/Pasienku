@@ -7,7 +7,7 @@
 
 @section('content')
 <div class="page-header no-gutters has-tab">
-    <h2 class="font-weight-normal">{{ $detail->patient->name }} {!! ($detail->status == 'SUCCESS') ? "<span class='badge badge-success'>Selesai</span>" : '' !!}</h2>
+    <h2 class="font-weight-normal">{{ $detail->patient->name }} {!! ($detail->status == 'SUCCESS') ? "<span class='badge badge-success float-right'>Selesai</span>" : '' !!}</h2>
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#tab-info">Informasi</a>
