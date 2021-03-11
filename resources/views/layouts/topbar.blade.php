@@ -1,14 +1,14 @@
 <div class="header">
-    <div class="logo logo-dark">
+    <div class="logo logo-dark my-auto text-center">
         <a href="{{ url('/') }}">
-            <img src="{{ url('assets/images/logo/logo.png') }}" alt="Logo">
-            <img class="logo-fold" src="{{ url('assets/images/logo/logo-fold.png') }}" alt="Logo">
+            <img src="{{ url('assets/images/logo/logo-full.svg') }}" alt="Logo" width="130">
+            <img class="logo-fold mx-auto" src="{{ url('assets/images/logo/logo.svg') }}" alt="Logo" width="30">
         </a>
     </div>
     <div class="logo logo-white">
         <a href="{{ url('/') }}">
             <img src="{{ url('assets/images/logo/logo-white.png') }}" alt="Logo">
-            <img class="logo-fold" src="{{ url('assets/images/logo/logo-fold-white.png') }}" alt="Logo">
+            <img class="logo-fold mx-auto" src="{{ url('assets/images/logo/logo-fold-white.png') }}" alt="Logo">
         </a>
     </div>
     <div class="nav-wrap">
@@ -30,7 +30,7 @@
             </li>
         </ul>
         <ul class="nav-right">
-            <li class="dropdown dropdown-animated scale-left">
+            <!-- <li class="dropdown dropdown-animated scale-left">
                 <a href="javascript:void(0);" data-toggle="dropdown">
                     <i class="anticon anticon-bell notification-badge"></i>
                 </a>
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </li> -->
             <li class="dropdown dropdown-animated scale-left">
                 <div class="pointer" data-toggle="dropdown">
                     <div class="avatar avatar-image  m-h-10 m-r-15">
@@ -110,11 +110,11 @@
                     </form>
                 </div>
             </li>
-            <li>
+            <!-- <li>
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#quick-view">
                     <i class="anticon anticon-appstore"></i>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </div>

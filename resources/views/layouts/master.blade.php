@@ -26,11 +26,11 @@
 
                 <footer class="footer">
                     <div class="footer-content">
-                        <p class="m-b-0">Copyright © {{ date('y') }} Barra Dev. All rights reserved.</p>
-                        <span>
+                        <p class="m-b-0">Copyright © {{ date('Y') }} Barra Dev. All rights reserved.</p>
+                        <!-- <span>
                             <a href="" class="text-gray m-r-15">Term &amp; Conditions</a>
                             <a href="" class="text-gray">Privacy &amp; Policy</a>
-                        </span>
+                        </span> -->
                     </div>
                 </footer>
 
