@@ -48,15 +48,17 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('delete', [ItemController::class, 'delete'])->name('item_delete');
         Route::post('/itemSelect', [ItemController::class, 'itemSelect'])->name('item_list_select');
         Route::post('/itemDetail', [ItemController::class, 'itemDetail'])->name('item_detail');
+        Route::get('/create', [ItemController::class, 'create'])->name('item_create');
         Route::get('{id}/detail', [ItemController::class, 'show'])->name('item_show');
     });
 
     Route::prefix('stock')->group(function () {
         Route::get('/', [StockController::class, 'index'])->name('stock_page');
-        Route::get('/list', [StockController::class, 'list'])->name('stock_list');
+        Route::post('/list', [StockController::class, 'list'])->name('stock_list');
         Route::post('store', [StockController::class, 'store'])->name('stock_store');
         Route::post('update', [StockController::class, 'update'])->name('stock_update');
         Route::delete('delete', [StockController::class, 'delete'])->name('stock_delete');
+        Route::post('stock_out', [StockController::class, 'stockOut'])->name('stock_out');
     });
 
     Route::prefix('registration')->group(function () {
@@ -66,8 +68,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('registerNewPatient', [RegistrationController::class, 'registerNewPatient'])->name('register_new_patient');
         Route::post('registerOldPatient', [RegistrationController::class, 'registerOldPatient'])->name('register_old_patient');
         Route::post('/history', [RegistrationController::class, 'history'])->name('register_history');
-        Route::get('{id}/detail', [RegistrationController::class, 'show'])->name('registration_show');
         Route::post('/finalize', [RegistrationController::class, 'finalize'])->name('registration_finalize');
+        Route::get('{id}/detail', [RegistrationController::class, 'show'])->name('registration_show');
     });
 
     Route::prefix('diagnosis')->group(function () {

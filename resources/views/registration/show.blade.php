@@ -39,7 +39,7 @@
                             </tr>
                             <tr>
                                 <td>Tanggal Pendaftaran</td>
-                                <td class="text-dark font-weight-semibold">{{ \Carbon\Carbon::parse($detail->created_at)->format('d/M/Y') }}</td>
+                                <td class="text-dark font-weight-semibold">{{ \Carbon\Carbon::parse($detail->created_at)->format('d-M-Y') }}</td>
                             </tr>
                             <tr>
                                 <td>Diagnosa Awal</td>
@@ -70,7 +70,7 @@
                             </tr>
                             <tr>
                                 <td>Tanggal Lahir</td>
-                                <td>{{ \Carbon\Carbon::parse($detail->patient->birthdate)->format('d/m/Y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($detail->patient->birthdate)->format('d-m-Y') }}</td>
                             </tr>
                             <tr>
                                 <td>Jenis Kelamin</td>

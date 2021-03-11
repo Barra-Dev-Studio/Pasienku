@@ -69,4 +69,18 @@ class StockController extends Controller
             return $this->sendNotificiation('error', 'Gagal menghapus transkasi');
         }
     }
+
+    public function stockOut(Request $request, StockService $stockService)
+    {
+        $data = $stockService->getAllStockOutById($request->id);
+        return DataTables::of($data)
+            ->addColumn('action', function ($data) {
+                return "<div class='btn-group'>
+                        <a class='btn btn-primary btn-sm' href='" . route('registration_show', $data->registration_id) . "'><i class='anticon anticon-search'></i></a>
+                    </div>";
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+    }
 }

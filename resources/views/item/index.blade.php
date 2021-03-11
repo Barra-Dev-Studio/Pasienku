@@ -15,7 +15,7 @@
                         <p>Di bawah ini merupakan list item yang terdata di dalam sistem.</p>
                     </div>
                     <div class="col-md-4">
-                        <button class="btn btn-primary float-right" data-toggle="modal" data-target="#itemModal">Tambah item</button>
+                        <a href="{{ route('item_create') }}" class="btn btn-primary float-right">Tambah item</a>
                     </div>
                 </div>
             </div>
@@ -32,31 +32,6 @@
                         <th style="width: 10px; text-align: center"><i class='anticon anticon-setting'></i></th>
                     </thead>
                 </table>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="itemModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="itemModalLabel">Tambah item</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <i class="anticon anticon-close"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('item_store') }}" id="formdata" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="name">Name item</label>
-                        <input type="text" name="name" id="name" placeholder="Nama item" required class="form-control">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" form="formdata" onclick="loading(this)">Simpan</button>
             </div>
         </div>
     </div>

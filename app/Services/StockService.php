@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Stock;
+use App\Models\StockOut;
 use Illuminate\Http\Request;
 use App\Services\ItemService;
 
@@ -23,6 +24,11 @@ class StockService
     public function getAllDataById($id)
     {
         return Stock::where('item_id', $id)->latest()->get();
+    }
+
+    public function getAllStockOutById($id)
+    {
+        return StockOut::where('item_id', $id)->with('registration')->latest()->get();
     }
 
     public function store(Request $request)

@@ -68,7 +68,7 @@
             </div>
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Detail Transaksi Item</h4>
+                    <h4 class="card-title">Detail Transaksi Masuk</h4>
                 </div>
                 <div class="card-body">
                     <table class="table" id="datatable" width="100%">
@@ -76,6 +76,21 @@
                             <th>No</th>
                             <th>Invoice</th>
                             <th>Expired</th>
+                            <th style="width: 50px;">Total</th>
+                            <th style="width: 10px; text-align: center"><i class='anticon anticon-setting'></i></th>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Detail Transaksi Keluar</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table" id="datatableout" width="100%">
+                        <thead>
+                            <th>No</th>
+                            <th>No. Pendaftaran</th>
                             <th style="width: 50px;">Total</th>
                             <th style="width: 10px; text-align: center"><i class='anticon anticon-setting'></i></th>
                         </thead>
@@ -159,8 +174,9 @@
             order: [1, 'ASC'],
             ajax: {
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
                 },
+                method: 'post',
                 url: "{{ route('stock_list') }}",
                 data: {
                     id: "{{ $detail->id }}"
@@ -179,6 +195,46 @@
                 },
                 {
                     data: 'expired',
+                },
+                {
+                    data: 'total',
+                    class: 'text-right'
+                },
+                {
+                    data: 'action',
+                    class: 'text-center',
+                    width: '10px'
+                }
+            ]
+        });
+
+        var table = $('#datatableout').DataTable({
+            paginate: true,
+            info: true,
+            sort: true,
+            processing: true,
+            serverSide: true,
+            order: [1, 'ASC'],
+            ajax: {
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                url: "{{ route('stock_out') }}",
+                method: 'post',
+                data: {
+                    id: "{{ $detail->id }}"
+                }
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false,
+                    class: 'text-center',
+                    width: '10px'
+
+                },
+                {
+                    data: 'registration.registration_number',
                 },
                 {
                     data: 'total',

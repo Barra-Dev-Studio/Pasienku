@@ -83,17 +83,17 @@ class ItemService
         return $this->calculateStock($request->item_id);
     }
 
-    public function useMultiple($request, $index)
+    public function useMultiple($registration_id, $item_id, $total)
     {
         StockOut::create(
             [
-                'registration_id' => $request->registration_id,
-                'item_id' => $request->item_id[$index],
-                'total' => $request->total[$index]
+                'registration_id' => $registration_id,
+                'item_id' => $item_id,
+                'total' => $total
             ]
         );
 
-        return $this->calculateStock($request->item_id[$index]);
+        return $this->calculateStock($item_id);
     }
 
     public function getPrice($itemId)

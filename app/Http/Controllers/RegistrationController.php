@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterNewPatientRequest;
 use App\Http\Requests\RegisterOldPatientRequest;
 use App\Services\BillingService;
+use App\Services\ItemService;
 use App\Services\PrescriptionService;
 use App\Services\RegistrationService;
 use Carbon\Carbon;
@@ -116,16 +117,23 @@ class RegistrationController extends Controller
             ->make(true);
     }
 
-    public function finalize(Request $request, RegistrationService $registrationService, BillingService $billingService)
+    public function finalize(Request $request, RegistrationService $registrationService, BillingService $billingService, PrescriptionService $prescriptionService, ItemService $itemService)
     {
         try {
             DB::beginTransaction();
 
             $act = $registrationService->finalize($request);
             $completeBilling = $billingService->updatePayment($request);
+
+            $prescriptionsData = $prescriptionService->get($request->registration_id);
+
+            foreach ($prescriptionsData as $data) {
+                $takeAStock = $itemService->useMultiple($request->registration_id, $data->item_id, $data->total);
+            }
+
             DB::commit();
 
-            if ($completeBilling) {
+            if ($takeAStock) {
                 return back()->with('success', 'Pendaftaran berhasil difinalisasi');
             } else {
                 return back()->with('error', 'Pendaftaran gagal difinalisasi');

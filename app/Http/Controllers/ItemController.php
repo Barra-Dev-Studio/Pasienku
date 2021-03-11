@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ItemRequest;
 use App\Models\Item;
 use App\Models\Stock;
 use App\Services\ItemService;
@@ -24,6 +25,11 @@ class ItemController extends Controller
         return view('item.show', compact('detail', 'totalPrice', 'expired'));
     }
 
+    public function create()
+    {
+        return view('item.create');
+    }
+
     public function list(ItemService $itemService)
     {
         $data = $itemService->getAllData();
@@ -43,18 +49,14 @@ class ItemController extends Controller
             ->make(true);
     }
 
-    public function store(Request $request, ItemService $itemService)
+    public function store(ItemRequest $request, ItemService $itemService)
     {
-        if ($itemService->checkDuplicate($request->name)) {
-            $act = $itemService->store($request);
+        $act = $itemService->store($request);
 
-            if ($act) {
-                return redirect()->back()->with('success', 'Berhasil menambahkan item');
-            } else {
-                return redirect()->back()->with('error', 'Gagal menambahkan item');
-            }
+        if ($act) {
+            return redirect()->route('item_page')->with('success', 'Berhasil menambahkan item');
         } else {
-            return redirect()->back()->with('error', 'Item telah tersedia');
+            return redirect()->route('item_page')->with('error', 'Gagal menambahkan item');
         }
     }
 

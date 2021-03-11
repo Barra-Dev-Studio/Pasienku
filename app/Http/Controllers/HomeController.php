@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Billing;
+use App\Models\Item;
 use App\Models\Patient;
 use App\Models\Registration;
 use Illuminate\Http\Request;
@@ -17,10 +18,11 @@ class HomeController extends Controller
 
     public function index()
     {
-        $totalPatient = Patient::count();
-        $totalBilling = Billing::sum('total_price');
-        $totalRegistration = Registration::count();
+        $totalPatients = Patient::count();
+        $totalBillings = Billing::sum('total_price');
+        $totalRegistrations = Registration::count();
+        $totalItems = Item::count();
 
-        return view('home', compact('totalPatient', 'totalBilling', 'totalRegistration'));
+        return view('home', compact('totalPatients', 'totalBillings', 'totalRegistrations', 'totalItems'));
     }
 }

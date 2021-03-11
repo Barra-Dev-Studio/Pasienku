@@ -30,8 +30,14 @@ class PrescriptionService
     {
         return Prescription::where('id', $request->id)->delete();
     }
+
     public function deleteFromRegistration(Request $request)
     {
         return Prescription::where('registration_id', $request->registration_id)->delete();
+    }
+
+    public function getAllData()
+    {
+        return Prescription::latest()->get();
     }
 }
