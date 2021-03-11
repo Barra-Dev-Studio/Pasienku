@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-6 col-lg-3">
-        <div class="card">
+        <div class="card" id="info-totalBillings">
             <div class="card-body">
                 <div class="media align-items-center">
                     <div class="avatar avatar-icon avatar-lg avatar-green">
@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3">
-        <div class="card">
+        <div class="card" id="info-totalPatients">
             <div class="card-body">
                 <div class="media align-items-center">
                     <div class="avatar avatar-icon avatar-lg avatar-blue">
@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3">
-        <div class="card">
+        <div class="card" id="info-totalRegistrations">
             <div class="card-body">
                 <div class="media align-items-center">
                     <div class="avatar avatar-icon avatar-lg avatar-red">
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="col-md-6 col-lg-3">
-        <div class="card">
+        <div class="card" id="info-totalItems">
             <div class="card-body">
                 <div class="media align-items-center">
                     <div class="avatar avatar-icon avatar-lg avatar-blue">
@@ -64,3 +64,38 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    function startTour() {
+        var info = new Tour({
+            steps: [{
+                    element: "#info-totalBillings",
+                    title: "Info Total Pendapatan",
+                    content: "Ini adalah informasi tentang total pendapatan yang terdata di dalam sistem"
+                },
+                {
+                    element: "#info-totalPatients",
+                    title: "Info Total Pasien",
+                    content: "Ini adalah informasi tentang total pasien yang terdata di dalam sistem"
+                },
+                {
+                    element: "#info-totalRegistrations",
+                    title: "Info Total Pendaftaran",
+                    content: "Ini adalah informasi tentang total registrasi pasien yang terdata di dalam sistem, baik yang sudah atau belum"
+                },
+                {
+                    element: "#info-totalItems",
+                    title: "Info Total Item",
+                    content: "Ini adalah informasi tentang total item yang ada di dalam sistem, seperti obat salah satunya",
+                    placement: "left",
+
+                }
+            ]
+        });
+        info.init();
+        info.start();
+        info.restart();
+    }
+</script>
+@endpush
