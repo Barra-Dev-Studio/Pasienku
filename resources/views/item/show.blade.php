@@ -16,9 +16,6 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#tab-edit">Edit Item</a>
         </li>
-        <!-- <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#tab-notification">Notification</a>
-        </li> -->
     </ul>
 </div>
 <div class="container">
