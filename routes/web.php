@@ -69,6 +69,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('registerOldPatient', [RegistrationController::class, 'registerOldPatient'])->name('register_old_patient');
         Route::post('/history', [RegistrationController::class, 'history'])->name('register_history');
         Route::post('/finalize', [RegistrationController::class, 'finalize'])->name('registration_finalize');
+        Route::get('/{id}/download', [RegistrationController::class, 'download'])->name('registration_download');
         Route::get('{id}/detail', [RegistrationController::class, 'show'])->name('registration_show');
     });
 

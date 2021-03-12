@@ -6,6 +6,7 @@ use App\Http\Requests\RegisterNewPatientRequest;
 use App\Http\Requests\RegisterOldPatientRequest;
 use App\Services\BillingService;
 use App\Services\ItemService;
+use App\Services\PdfService;
 use App\Services\PrescriptionService;
 use App\Services\RegistrationService;
 use Carbon\Carbon;
@@ -142,5 +143,12 @@ class RegistrationController extends Controller
             DB::rollback();
             return back()->with('error', 'Pendaftaran gagal difinalisasi');
         }
+    }
+
+    public function download($id, RegistrationService $registrationService, PrescriptionService $prescriptionService, BillingService $billingService, PdfService $pdfService)
+    {
+        $data = $registrationService->getDataWithPatient($id);
+
+        return $pdfService->show('test', 'download.registration_info', $data);
     }
 }

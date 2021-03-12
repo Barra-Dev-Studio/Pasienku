@@ -245,7 +245,11 @@
                         </div>
                         <div class="form-group mt-3">
                             <button class="btn btn-primary" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>Simpan Pembayaran</button>
+                            @if($detail->status == 'ONGOING')
                             <button class="btn btn-success float-right" type="button" data-toggle="modal" data-target="#finalizeModal" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>Finalisasi</button>
+                            @else
+                            <a href="{{ route('registration_download', $detail->id) }}" class="btn btn-success float-right" target="_blank">Download</a>
+                            @endif
                         </div>
                     </form>
                 </div>

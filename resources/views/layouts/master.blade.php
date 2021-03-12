@@ -8,7 +8,7 @@
 
     <link rel="shortcut icon" href="{{ url('assets/images/logo/favicon.png') }}">
     <link href="{{ url('assets/css/app.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url('css/bootstrap-tour-standalone.min.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url('css/bootstrap-tour-standalone.min.css') }}"> -->
 
     @stack('css')
 
