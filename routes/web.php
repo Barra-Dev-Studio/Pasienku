@@ -88,6 +88,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('prescription')->group(function () {
         Route::post('/store', [PrescriptionController::class, 'store'])->name('prescription_store');
+        Route::get('/{id}/download', [PrescriptionController::class, 'download'])->name('prescription_download');
     });
 
     Route::prefix('billing')->group(function () {

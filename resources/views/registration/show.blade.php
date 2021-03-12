@@ -168,7 +168,11 @@
                             @endforeach
                         </div>
                         <div class="form-group">
+                            @if($detail->status == 'ONGOING')
                             <button class="btn btn-primary" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>Simpan Resep</button>
+                            @else
+                            <a href="{{ route('prescription_download', $detail->id) }}" class="btn btn-success float-right" target="_blank">Cetak Resep</a>
+                            @endif
                         </div>
                     </form>
                 </div>
@@ -248,7 +252,7 @@
                             @if($detail->status == 'ONGOING')
                             <button class="btn btn-success float-right" type="button" data-toggle="modal" data-target="#finalizeModal" {{ ($detail->status == 'SUCCESS') ? 'disabled=disabled' : '' }}>Finalisasi</button>
                             @else
-                            <a href="{{ route('registration_download', $detail->id) }}" class="btn btn-success float-right" target="_blank">Download</a>
+                            <a href="{{ route('registration_download', $detail->id) }}" class="btn btn-success float-right" target="_blank">Cetak Bukti Pembayaran</a>
                             @endif
                         </div>
                     </form>

@@ -145,10 +145,10 @@ class RegistrationController extends Controller
         }
     }
 
-    public function download($id, RegistrationService $registrationService, PrescriptionService $prescriptionService, BillingService $billingService, PdfService $pdfService)
+    public function download($id, RegistrationService $registrationService, PdfService $pdfService)
     {
         $data = $registrationService->getDataWithPatient($id);
 
-        return $pdfService->show('test', 'download.registration_info', $data);
+        return $pdfService->show('Billing_ ' . $data->registration_number, 'download.registration_info', $data);
     }
 }

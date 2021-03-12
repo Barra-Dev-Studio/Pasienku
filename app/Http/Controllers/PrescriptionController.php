@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Services\BillingDetailService;
 use App\Services\ItemService;
+use App\Services\PdfService;
 use App\Services\PrescriptionService;
+use App\Services\RegistrationService;
 use Illuminate\Http\Request;
 use DB;
 
@@ -19,7 +21,6 @@ class PrescriptionController extends Controller
             $billingDetailService->deleteFromRegistration($request);
 
             for ($index = 0, $totalData = count($request->item_id); $index < $totalData; $index++) {
-                // if ($request->item_id[$index] != 0) $itemService->useMultiple($request, $index);
                 $act = $prescriptionService->store($request, $index);
                 $prescriptionId = $act->id;
 
@@ -35,8 +36,15 @@ class PrescriptionController extends Controller
             }
         } catch (\Exception $e) {
             DB::rollback();
-            // return back()->with('error', 'Resep gagal disimpan');
-            print_r($e->getMessage());
+            return back()->with('error', 'Terjadi kesalahan. Resep gagal disimpan');
+            // print_r($e->getMessage());
         }
+    }
+
+    public function download($id, RegistrationService $registrationService, PdfService $pdfService)
+    {
+        $data = $registrationService->getDataWithPatient($id);
+
+        return $pdfService->show('Resep_Obat_' . $data->registration_number, 'download.prescription_info', $data);
     }
 }
