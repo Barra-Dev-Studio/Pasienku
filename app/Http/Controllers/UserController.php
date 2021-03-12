@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NewUserRequest;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use DataTables;
@@ -59,6 +60,22 @@ class UserController extends Controller
             return $this->sendNotificiation('success', 'Berhasil menghapus user');
         } else {
             return $this->sendNotificiation('success', 'Gagal menghapus user');
+        }
+    }
+
+    public function create()
+    {
+        return view('user.create');
+    }
+
+    public function store(NewUserRequest $request, UserService $userService)
+    {
+        $act = $userService->store($request);
+
+        if ($act) {
+            return redirect()->route('admin_user_page')->with('success', 'Berhasil menambahkan user');
+        } else {
+            return redirect()->back()->with('error', 'Gagal menambahkan user');
         }
     }
 }

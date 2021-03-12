@@ -14,6 +14,9 @@
                         <h4>List User</h4>
                         <p>Di bawah ini merupakan list user yang terdata di dalam sistem.</p>
                     </div>
+                    <div class="col-md-4">
+                        <a href="{{ route('admin_user_create') }}" class="btn btn-primary float-right">Tambah User</a>
+                    </div>
                 </div>
             </div>
         </div>

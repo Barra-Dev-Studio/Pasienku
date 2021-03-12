@@ -102,6 +102,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('list', [UserController::class, 'list'])->name('admin_user_list');
             Route::post('update', [UserController::class, 'update'])->name('admin_user_update');
             Route::delete('delete', [UserController::class, 'delete'])->name('admin_user_delete');
+            Route::get('create', [UserController::class, 'create'])->name('admin_user_create');
+            Route::post('store', [UserController::class, 'store'])->name('admin_user_store');
         });
     });
 });

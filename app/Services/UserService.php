@@ -47,4 +47,15 @@ class UserService
     {
         return User::latest()->get();
     }
+
+    public function store($request)
+    {
+        return User::create(
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ]
+        );
+    }
 }
