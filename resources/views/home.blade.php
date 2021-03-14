@@ -69,6 +69,16 @@
 <script>
     function startTour() {
         var info = new Tour({
+            template: `<div class='popover'>
+                <div class="arrow"></div>
+                <h3 class='popover-header popover-title'></h3>
+                <div class='popover-body popover-content'></div>
+                <div class='popover-body popover-navigation'>
+                    <button class='btn btn-default' data-role='prev'>Prev</button>
+                    <button class='btn btn-default' data-role='next'>Next</button>
+                    <button class='btn btn-default' data-role='end'>End tour</button>
+                </div>
+                </div>`,
             steps: [{
                     element: "#info-totalBillings",
                     title: "Info Total Pendapatan",
@@ -87,10 +97,14 @@
                 {
                     element: "#info-totalItems",
                     title: "Info Total Item",
-                    content: "Ini adalah informasi tentang total item yang ada di dalam sistem, seperti obat salah satunya",
+                    content: "Ini adalah informasi tentang total item atau obat yang ada di dalam sistem, seperti obat salah satunya",
                     placement: "left",
-
-                }
+                },
+                {
+                    element: "#info-sidebar",
+                    title: "Sidebar",
+                    content: "Digunakan untuk beralih ke halaman dan fitur lain. Semua fitur ada di dalam sidebar."
+                },
             ]
         });
         info.init();

@@ -12,6 +12,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\UserController;
 use App\Models\Registration;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\ServerBag;
 
@@ -28,7 +29,9 @@ use Symfony\Component\HttpFoundation\ServerBag;
 
 Route::get('/', [HomeController::class, 'welcome']);
 
-Auth::routes();
+Auth::routes([
+    'register' => false
+]);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');

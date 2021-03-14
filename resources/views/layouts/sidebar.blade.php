@@ -1,4 +1,4 @@
-<div class="side-nav">
+<div class="side-nav" id="info-sidebar">
     <div class="side-nav-inner">
         <ul class="side-nav-menu scrollable">
             <li class="nav-item dropdown">
